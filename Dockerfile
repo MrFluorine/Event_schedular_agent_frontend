@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy source code
 COPY . .
-
+#ok
 # For Deploy from repo, we'll use a different approach
 # Build with placeholder values, then replace at runtime
 ENV VITE_BACKEND_URL=__VITE_BACKEND_URL__
