@@ -3,11 +3,13 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
-# Copy package files first for better caching
-COPY package*.json ./
-RUN npm ci
+# Copy package.json first
+COPY package.json ./
 
-# Copy source code
+# Delete lock file and install fresh dependencies
+RUN rm -f package-lock.json && npm install
+
+# Copy rest of source code
 COPY . .
 
 # Accept build arguments
@@ -31,9 +33,6 @@ RUN npm run build
 
 # Production stage with nginx
 FROM nginx:alpine
-
-# Install gettext for envsubst (if needed for runtime substitution)
-RUN apk add --no-cache gettext
 
 # Copy built files from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
