@@ -13,6 +13,14 @@ function Login({ setUser }) {
   const navigate = useNavigate();
 
   // Debug environment variables
+  // In Login.jsx, add this useEffect at the top of the component
+useEffect(() => {
+  console.log('🔍 Current environment variables:', {
+    BACKEND_URL: import.meta.env.VITE_BACKEND_URL,
+    CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    REDIRECT_URI: import.meta.env.VITE_OAUTH_REDIRECT_URI
+  });
+}, []);
   useEffect(() => {
     console.log("🔍 Login Component Environment Check:", {
       BACKEND_URL: BACKEND_URL || 'MISSING',
